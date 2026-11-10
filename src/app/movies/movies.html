@@ -2,7 +2,7 @@
   <div class="card shadow mb-4">
     <div class="card-body">
      <table class="table table-striped">
-        <tr> <th>N°</th><th>Id</th><th>Titre</th> <th>Réalisateur</th> <th>Durée (min)</th> <th>Note</th>  <th>Date Sortie</th> <th>Genre</th></tr>
+        <tr> <th>N°</th><th>Id</th><th>Titre</th> <th>Réalisateur</th> <th>Durée (min)</th> <th>Note</th>  <th>Date Sortie</th> <th>Genre</th>@if (authService.isAdmin()) { <th colspan="2">Actions</th> }</tr>
          @for (movie of movies; track movie.idMovie; let index =$index; let nbr=$count; let first = $first; let last = $last)
          {
            @if(first)
@@ -18,8 +18,10 @@
                <td>{{movie.noteMovie}}</td>
                <td>{{movie.dateSortie | date:'dd/MM/yyyy'}}</td>
                <td>{{movie.genre?.nomGenre}}</td>
-               <td><a class="btn btn-danger" (click)="supprimerMovie(movie)">Supprimer</a></td>
-               <td><a class="btn btn-success" [routerLink]="['/updateMovie',movie.idMovie]">Modifier</a></td>
+               @if (authService.isAdmin()) {
+                 <td><button class="btn btn-danger" type="button" (click)="supprimerMovie(movie)">Supprimer</button></td>
+                 <td><a class="btn btn-success" [routerLink]="['/updateMovie', movie.idMovie]">Modifier</a></td>
+               }
              </tr>
           </tbody>
          }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Movie } from '../model/movie.model';
 import { MovieService } from '../services/movie.service';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-movies',
@@ -12,7 +13,10 @@ import { RouterLink } from '@angular/router';
 })
 export class Movies implements OnInit {
   movies! : Movie[]; //un tableau de Movie
-  constructor(private movieService: MovieService ) {
+  constructor(
+    private movieService: MovieService,
+    public authService: AuthService,
+  ) {
     this.movies = movieService.listeMovies();
   }
 

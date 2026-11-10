@@ -15,7 +15,9 @@
             Movies
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" routerLink="/add-movie">Ajouter</a></li>
+            @if (authService.isAdmin()) {
+              <li><a class="dropdown-item" routerLink="/add-movie">Ajouter</a></li>
+            }
             <li><a class="dropdown-item" routerLink="/movies">Lister</a></li>
             <li> <a class="dropdown-item" routerLink="/rechercheParGenre" >Recherche Par Genre</a></li>
             <li><a class="dropdown-item" routerLink="/rechercheParNom">Recherche Par Titre</a></li>
@@ -24,16 +26,21 @@
       </ul>
 
       <ul class="navbar-nav ms-auto m-2">
+        @if (authService.isLoggedIn) {
+        <li class="nav-item">
+          <span class="nav-link">{{ authService.loggedUser }}</span>
+        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            [username]
+            Login
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown2">
-            <li><a class="dropdown-item" href="#">Login</a></li>
-            <li><a class="dropdown-item" href="#">Logout</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><button class="dropdown-item" type="button" (click)="onLogout()">Logout</button></li>
           </ul>
         </li>
+        } @else {
+          <li class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
+        }
       </ul>
     </div>
   </div>

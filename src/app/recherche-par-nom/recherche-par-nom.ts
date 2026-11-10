@@ -15,7 +15,6 @@ export class RechercheParNom implements OnInit {
   movies: Movie[] = [];
   allMovies: Movie[] = [];
   searchTerm = '';
-  nomMovie = '';
 
   constructor(private movieService: MovieService) {}
 
@@ -24,15 +23,17 @@ export class RechercheParNom implements OnInit {
     this.movies = this.allMovies;
   }
 
-  rechercherMovies(): void {
-    const term = this.nomMovie.trim().toLocaleLowerCase();
-    this.movies = term
-      ? this.allMovies.filter(movie => (movie.titreMovie ?? '').toLocaleLowerCase().includes(term))
-      : this.allMovies;
-  }
+  // Recherche par bouton :
+  // rechercherMovies(): void {
+  //   const term = this.nomMovie.trim().toLocaleLowerCase();
+  //   this.movies = term
+  //     ? this.allMovies.filter(movie => (movie.titreMovie ?? '').toLocaleLowerCase().includes(term))
+  //     : this.allMovies;
+  // }
 
-  onKeyUp(filterText: string): void {
-    const term = filterText.trim().toLocaleLowerCase();
-    this.movies = this.allMovies.filter(movie => (movie.titreMovie ?? '').toLocaleLowerCase().includes(term));
-  }
+  // Recherche avec keyup :
+  // onKeyUp(filterText: string): void {
+  //   const term = filterText.trim().toLocaleLowerCase();
+  //   this.movies = this.allMovies.filter(movie => (movie.titreMovie ?? '').toLocaleLowerCase().includes(term));
+  // }
 }

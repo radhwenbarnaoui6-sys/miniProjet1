@@ -1,16 +1,6 @@
 <div class="container py-4">
   <h1 class="h3 mb-3">Recherche par titre</h1>
-  <form class="row g-2 align-items-end mb-4" (ngSubmit)="rechercherMovies()">
-    <div class="col-sm-8 col-md-6">
-      <label for="movie-title" class="form-label">Titre du film</label>
-      <input id="movie-title" type="search" class="form-control" [(ngModel)]="nomMovie" name="nomMovie">
-    </div>
-    <div class="col-auto"><button type="submit" class="btn btn-primary">Rechercher</button></div>
-  </form>
-  <div class="mb-4">
-    <label for="live-search" class="form-label">Recherche en tapant</label>
-    <input #liveSearch id="live-search" type="search" class="form-control" (keyup)="onKeyUp(liveSearch.value)" placeholder="Saisissez un titre">
-  </div>
+  <!-- Recherche par bouton et recherche keyup désactivées ; le pipe est la seule recherche active. -->
   <div class="mb-4">
     <label for="pipe-search" class="form-label">Recherche avec pipe</label>
     <input id="pipe-search" type="search" class="form-control" [(ngModel)]="searchTerm" name="searchTerm" placeholder="Saisissez un titre">
@@ -20,8 +10,14 @@
       <table class="table table-striped align-middle mb-0">
         <thead><tr><th>Id</th><th>Titre</th><th>Réalisateur</th><th>Durée (min)</th><th>Note</th><th>Date de sortie</th><th>Genre</th></tr></thead>
         <tbody>
-          @for (movie of movies | searchFilter:searchTerm; track movie.idMovie) {
-            <tr><td>{{ movie.idMovie }}</td><td>{{ movie.titreMovie }}</td><td>{{ movie.realisateur }}</td><td>{{ movie.dureeMin }}</td><td>{{ movie.noteMovie }}</td><td>{{ movie.dateSortie | date:'dd/MM/yyyy' }}</td><td>{{ movie.genre?.nomGenre ?? 'Sans genre' }}</td></tr>
+          @for (movie of movies | searchFilter :searchTerm; track movie.idMovie) {
+            <tr>
+              <td>{{ movie.idMovie }}</td>
+              <td>{{ movie.titreMovie }}</td>
+              <td>{{ movie.realisateur }}</td>
+              <td>{{ movie.dureeMin }}</td>
+              <td>{{ movie.noteMovie }}</td>
+              <td>{{ movie.dateSortie | date:'dd/MM/yyyy' }}</td><td>{{ movie.genre?.nomGenre ?? 'Sans genre' }}</td></tr>
           } @empty {
             <tr><td colspan="7" class="text-center">Aucun film trouvé.</td></tr>
           }
